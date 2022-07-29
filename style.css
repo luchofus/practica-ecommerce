@@ -1,0 +1,181 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+
+.cont-cart{
+    background: rgb(75, 235, 75);
+}
+.btn-cart{
+    background: none;
+    border: none;
+    margin: 10px;
+}
+.btn-cart:hover{
+    background-color: rgb(77, 185, 77);
+    border: none;
+}
+.btn-cart:active{
+    background:none;
+    border: none;
+    outline: none;
+}
+.btn-cart:focus{
+    background: none;
+    border: none;
+    outline: none;
+}
+.fa-cart-shopping{
+    background:none;
+    color: black;
+}
+.counter-cart{
+    padding-left: 5px;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.h1{
+    text-align: center;
+    font-size: 28px;
+    margin-top: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 800;
+}
+
+.cont-cards{
+    margin-top: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.contenedor-productos{
+    text-align: center;
+    margin: 60px 10px;
+    background-color: white;
+    border: solid 1px rgb(51, 221, 51);
+    border-radius: 15px;
+    height: 260px;
+
+}
+.title-productos{
+    font-size: 20px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    padding: 10px;
+}
+.price-productos{
+    font-size: 15px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    padding: 10px;
+}
+.btn-agregar-carrito{
+    background-color: rgb(51, 221, 51);
+    border: none;
+    border-radius: 15px;
+}
+.text-btn-add{
+    color: white;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    padding: 8px;
+}
+
+.img-productos{
+    width: 120px;
+    height: 100px;
+    margin-top: 20px;
+}
+
+.img-cart{
+    width:100px;
+    height: 50px;
+}
+.nombre-producto-cart{
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
+.id-show-cart{
+    
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
+.cont-items{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.fa-trash{
+    color: white;
+    background-color: red;
+    padding: 5px;
+}
+.btn-eliminar-producto{
+    background:none;
+    border: none;
+}
+
+#delete-cart{
+    background: white;
+    color: #27c127;
+    border: none
+}
+.modal-content {
+    background-color: #29cd29;
+    color: white;
+    border: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-clip: padding-box;
+    outline: 0;
+    height: 100%;
+}
+.modal-dialog{   
+    height: 100vh;
+    width: 45%;
+    position: absolute;
+    background: #29cd29;
+    margin-top: 0;
+}
+.modal{
+    --bs-modal-zindex: 1055;
+    /* --bs-modal-width: 500px; */
+    --bs-modal-padding: 1rem;
+    --bs-modal-margin: 0.5rem;
+    --bs-modal-color: ;
+    --bs-modal-bg: #fff;
+    --bs-modal-border-color: var(--bs-border-color-translucent);
+    --bs-modal-border-width: 1px;
+    --bs-modal-border-radius: 0.5rem;
+    --bs-modal-box-shadow: 0 0.125rem 0.25remrgba(0, 0, 0, 0.075);
+    --bs-modal-inner-border-radius: calc(0.5rem - 1px);
+    --bs-modal-header-padding-x: 1rem;
+    --bs-modal-header-padding-y: 1rem;
+    --bs-modal-header-padding: 1rem 1rem;
+    --bs-modal-header-border-color: var(--bs-border-color);
+    --bs-modal-header-border-width: 1px;
+    --bs-modal-title-line-height: 1.5;
+    --bs-modal-footer-gap: 0.5rem;
+    --bs-modal-footer-bg: ;
+    --bs-modal-footer-border-color: var(--bs-border-color);
+    --bs-modal-footer-border-width: 1px;
+}
+.modal-footer{
+        display: flex;
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: calc(var(--bs-modal-padding) - var(--bs-modal-footer-gap) * .5);
+        background-color: var(--bs-modal-footer-bg);
+        border-top: var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-border-color);
+        border-bottom-right-radius: var(--bs-modal-inner-border-radius);
+        border-bottom-left-radius: var(--bs-modal-inner-border-radius);
+}
