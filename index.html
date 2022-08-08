@@ -7,40 +7,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/b6eda3b111.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 
 <body>
     <header>
-        <div class="cont-cart">
+        <div class="cont-cart" id="cont-header">
+            <div class ="cont-row-1-header cont-link-ig">
+                <a href="#" class="link-ig" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary btn-cart" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="fas fa-cart-shopping"><span id="count-cart" class="counter-cart">0</span></i>
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="cont-row-2-header row">
+                <div class="cont-col-1 col col-lg-2">
+                    <a href="index.html">
+                        <img src="valleverde.png" class="imagen-link" alt="">
+                    </a>
+                </div>
+                <div class="cont-col-1 col col-lg-7 cont-search">
+                    <form class="d-flex input-search" role="search">
+                        <!--Le asignamos un id al input y al button para luego usarlos en JS-->
+                        <input class="form-control me-2 search-text" type="search" placeholder="¿Qué está buscando?" aria-label="Search" id="input-buscar">
+                        <button class="btn btn-outline-success search" type="submit" id="btn-buscar">
+                            <i class="fas fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="cont-col-3 col col-lg-3">
+                    <button type="button" class="btn btn-primary btn-cart" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        <i class="fas fa-cart-shopping"><span id="count-cart" class="counter-cart">0</span></i>
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Carrito</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="cont-modal-title">
+                                <h5 class="modal-title" id="exampleModalLabel">Carrito</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="cont-modal-etiquetas">
+                                <p class="text-etiquetas">Producto</p>
+                                <p class="text-etiquetas-precio">Precio</p>
+                            </div>
                         </div>
                         <div class="modal-body" id="show-cart">
                             <!--Tabla productos, precio, id, borrar producto-->
                         </div>
                         <div class="modal-footer" id="foot-modal">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="delete-cart" onclick="vaciarCarrito()">Vaciar carrito</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+                </div>
+            </div>
 
+
+            <!-- <button type="button" class="btn btn-primary btn-cart" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                <i class="fas fa-cart-shopping"><span id="count-cart" class="counter-cart">0</span></i>
+            </button> -->
+
+            <!-- Modal -->
+    </header>
+    <section>
+        <a href="index.html">Hola</a>
+    </section>
     <section>
         <h1 class="h1">Productos disponibles</h1>
     </section>
@@ -53,6 +91,10 @@
     <script src="carrito.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
     </script>
 </body>
 
