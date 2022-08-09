@@ -63,9 +63,7 @@ const botonBuscador = document.getElementById("btn-buscar")
 
 const filtrar = () => {
     const cardsCont = document.getElementById("cards-section")
-    const contenedor = document.createElement("div")
-    
-    
+    const contenedor = document.createElement("div")        
     cardsCont.innerHTML = ''
     let textoBuscado = buscador.value.toLowerCase();
     stockDisponible.forEach ((producto) => {
@@ -80,12 +78,6 @@ const filtrar = () => {
                         <button class="btn-agregar-carrito" id=${botonId}><span class="text-btn-add">Agregar</span></button>
                 </div>
             `
-            document.getElementById(botonId).addEventListener('click', () => {
-                carrito.push(producto)
-                localStorage.setItem("carrito", JSON.stringify(carrito))
-                actualizarCarrito()
-                console.log(carrito)
-            })
         }
     })
 }
