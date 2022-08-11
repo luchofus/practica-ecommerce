@@ -5,6 +5,9 @@
 body{
     height: 300vh;
 }
+.cont-row-2-header{
+    width: 100vw;
+}
 .cont-cart{
     transition: all 0.7s;
     background: rgb(1, 171, 82);
@@ -287,14 +290,19 @@ body{
     }
 }
 
-@media only screen and (max-width:900px){
+@media only screen and (max-width:990px){
     .cont-link-ig{
         display: none;
     }
     .cont-search{
         display: none;
     }
+    .cont-logo{
+        display: none;
+    }
 }
+
+
 
 .link-ig{
     text-decoration: none;
@@ -326,6 +334,49 @@ body{
 .search-text{
     width: 520px;
     height: 40px;
+}
+@media only screen and (max-width:380px){
+    .search-text{
+        width: 250px;
+        height: 40px;
+    }
+    .search{
+        display: none;
+    }
+    .btn-cart{
+        background: none;
+        border: none;
+        margin: 10px;
+        transition: 0.7s;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-left: 0px;
+        padding-bottom: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+    .modal-dialog{   
+        height: 100vh;
+        position: absolute;
+        background: #29cd29;
+        margin-top: 0;
+        right: 0%;
+        margin-right: 0px;
+        width: 90%;
+    }
+    .modal-body{
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    #cantidad-productos{
+        margin-bottom: 0px;
+        display: flex;
+        align-items: center;
+    }
+    #cards-section{
+        margin-right: 0px;
+        margin-left: 0px;
+    }
 }
 
 /*Estilos imagen link*/

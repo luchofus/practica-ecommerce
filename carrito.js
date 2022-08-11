@@ -18,13 +18,16 @@ document.getElementById("count-cart").innerHTML =
 const mostradorCarrito = document.getElementById("show-cart")
 localStorage.getItem("mostrador-carrito")
 carrito.forEach ((prod) => {
-    mostradorCarrito.innerHTML += `<div class="cont-items">
+
+    const contenedor = document.createElement("div")
+    contenedor.className = ("cont-items")
+    contenedor.innerHTML = `
     <img src="${prod.imagen}" class="imagen-cart-producto">
     <h2 class="nombre-producto-cart">${prod.nombre}</h2>
     <p class="price-producto-cart">Precio: $${prod.precio}</p>
     <button class="btn-eliminar-producto" id="btn-eliminar${prod.id}" onclick="eliminarDelCarrito(${prod.id})"><i class= "fas fa-trash"></i></button>
-    </div>
     `
+    mostradorCarrito.appendChild(contenedor)
 })
 //Array de productos disponibles
 const stockDisponible = [
@@ -62,38 +65,37 @@ const buscador = document.getElementById("input-buscar")
 const botonBuscador = document.getElementById("btn-buscar")
 
 
-const filtrar = () => {
-    const cardsCont = document.getElementById("cards-section")
-    const contenedor = document.createElement("div")        
-    cardsCont.innerHTML = ''
-    let textoBuscado = buscador.value.toLowerCase();
-    stockDisponible.forEach ((producto) => {
-        const botonId = `agregarCarrito${producto.id}`
-        let nombreProductoABuscar = producto.nombre.toLowerCase();
-        if(nombreProductoABuscar.indexOf(textoBuscado) !== -1){
-            cardsCont.innerHTML += `
-                <div class= "col col-lg-3 col-dm-3 col-xs-6 contenedor-productos">
-                        <img src="${producto.imagen}" class="img-productos">
-                        <h2 class="title-productos">${producto.nombre}</h2>
-                        <p class="price-productos"> $ ${producto.precio}</p>
-                        <button class="btn-agregar-carrito" id=${botonId}><span class="text-btn-add">Agregar</span></button>
+    const filtrar = () => {
+        const cardsCont = document.getElementById("cards-section")
+        const contenedor = document.createElement("div")
+        cardsCont.innerHTML = ' '
+        let textoBuscado = buscador.value.toLowerCase();
+        stockDisponible.forEach((producto) => {
+            let productoABuscar = producto.nombre.toLowerCase();
+            if(productoABuscar.indexOf(textoBuscado) !== -1){
+                const botonId = `agregarCarrito${producto.id}`
+                cardsCont.innerHTML += `<div class="col col-lg-3 col-dm-3 col-xs-6 contenedor-productos">
+                <img src="${producto.imagen}" class="img-productos">
+                <h2 class="title-productos">${producto.nombre}</h2>
+                <p class="price-productos">Precio: $${producto.precio}</p>
+                <button class="btn-agregar-carrito" id=${botonId}><span class="text-btn-add">Agregar</span></button>
                 </div>
-            `
-        }
-    })
-    let btns = document.querySelectorAll(".btn-agregar-carrito")
-
-    btns.forEach((producto) => {
-        producto.addEventListener('click', () => {
-            let id = producto.id[producto.id.length - 1]
-            let productoAComprar = stockDisponible.find((prod) => prod.id == id)
-            carrito.push(productoAComprar)
-            console.log(carrito)
-            actualizarCarrito();
+                `
+            }
         })
-    })
+            let botones = document.querySelectorAll(".btn-agregar-carrito")
+            botones.forEach((producto) => {
+                producto.addEventListener('click', () => {                  
+                    let id = producto.id[producto.id.length - 1];
+                    let productoAgregar = stockDisponible.find((prod) => prod.id == id)
+                    carrito.push(productoAgregar)
+                    localStorage.setItem("carrito", JSON.stringify(carrito))
+                    actualizarCarrito();
+                })
+            })
 
 }
+
 
 buscador.addEventListener('keyup', filtrar)
 botonBuscador.addEventListener('click', filtrar)
@@ -103,6 +105,11 @@ botonBuscador.addEventListener('click', filtrar)
 stockDisponible.forEach ((producto) => {
     const botonId = `agregarCarrito${producto.id}`
     document.getElementById(botonId).addEventListener('click', () =>{
+        let existeElProducto = carrito.some((prod) => prod.id == producto.id)
+        if(existeElProducto){
+            producto.cantidad++
+            console.log(producto.cantidad)
+        }
         carrito.push(producto)
         localStorage.setItem("carrito", JSON.stringify(carrito))
         actualizarCarrito();
@@ -126,13 +133,16 @@ const actualizarCarrito = () => {
         <p>${carrito.length} - $${totalCarrito}</p> `   
     localStorage.setItem("contador-carrito", JSON.stringify(contador))
     carrito.forEach ((prod) => {
-        mostradorCarrito.innerHTML += `<div class="cont-items">
+        const contenedor = document.createElement("div")
+        contenedor.className = ("cont-items")
+        contenedor.innerHTML = `
         <img src="${prod.imagen}" class="imagen-cart-producto">
         <h2 class="nombre-producto-cart">${prod.nombre}</h2>
         <p class="price-producto-cart">Precio: $${prod.precio}</p>
+        <p id="cantidad-productos">Cantidad: ${prod.cantidad}</p>
         <button class="btn-eliminar-producto" id="btn-eliminar${prod.id}" onclick="eliminarDelCarrito(${prod.id})"><i class= "fas fa-trash"></i></button>
-        </div>
         `
+        mostradorCarrito.appendChild(contenedor)
         document.getElementById("foot-modal").innerHTML= `
         <div>
             <p style="margin-bottom: 0px; font-weight:700;"> Precio total: $ ${totalCarrito}</p>
@@ -150,6 +160,7 @@ const eliminarDelCarrito = (productoSeleccionado) => {
     const producto = carrito.find((prod) => prod.id === productoSeleccionado)
     const indiceProducto = carrito.indexOf(producto)
     carrito.splice(indiceProducto, 1)
+    carrito[producto.cantidad --, 1]
     localStorage.setItem("carrito", JSON.stringify(carrito))
     actualizarCarrito();
 }
