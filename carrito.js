@@ -4,12 +4,19 @@ let totalCarrito = carrito.reduce((acumulador, producto)=> acumulador + producto
 console.log(totalCarrito)
 const contador = localStorage.getItem("contador-carrito")
 document.getElementById("foot-modal").innerHTML = `
-<div>
-    <p style="margin-bottom: 0px; font-weight:700;"> Precio total: $ ${totalCarrito}</p>
-</div>
-<div>
-    <button type="button" id="delete-cart" onclick="vaciarCarrito()"><span class="text-vaciar">Vaciar carrito</span></button>
+<div style="display:flex; flex-direction:column; justify-content:center; width:100%;">
+<div style="display:flex; flex-direction:row; justify-content:space-between;">
+    <div>
+        <p style="margin-bottom: 0px; font-weight:700;"> Precio total: $ ${totalCarrito}</p>
     </div>
+    <div>
+        <button type="button" id="delete-cart" onclick="vaciarCarrito()"><span class="text-vaciar">Vaciar carrito</span></button>
+    </div>
+</div>
+<div style="text-align:center;">
+    <a href="#">Ir a pagar</a>
+</div>
+</div>
 `
 document.getElementById("count-cart").innerHTML = 
 `
@@ -25,6 +32,7 @@ carrito.forEach ((prod) => {
     <img src="${prod.imagen}" class="imagen-cart-producto">
     <h2 class="nombre-producto-cart">${prod.nombre}</h2>
     <p class="price-producto-cart">Precio: $${prod.precio}</p>
+    <p id="cantidad-producto">Cantidad: ${prod.cantidad}</p>
     <button class="btn-eliminar-producto" id="btn-eliminar${prod.id}" onclick="eliminarDelCarrito(${prod.id})"><i class= "fas fa-trash"></i></button>
     `
     mostradorCarrito.appendChild(contenedor)
@@ -108,11 +116,21 @@ stockDisponible.forEach ((producto) => {
         let existeElProducto = carrito.some((prod) => prod.id == producto.id)
         if(existeElProducto){
             producto.cantidad++
-            console.log(producto.cantidad)
+            carrito.push(producto)
+        }else{
+            carrito.push(producto)    
         }
-        carrito.push(producto)
+        
         localStorage.setItem("carrito", JSON.stringify(carrito))
         actualizarCarrito();
+        let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + producto.precio, 0)
+        Swal.fire(`
+        ¡Agregaste con éxito ${producto.nombre} al carrito!,
+        <img src="${producto.imagen}" class="imagen-cart-producto",
+        <p>Precio: $${producto.precio}</p>
+        <p>Total carrito: $${totalCarrito}`
+    )
+    Swal.fire.className = ("alert-buy")
     })
 })
 
@@ -121,13 +139,20 @@ const actualizarCarrito = () => {
     mostradorCarrito.innerHTML = " "
     let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + producto.precio, 0)
     document.getElementById("foot-modal").innerHTML = `
-    <div>
-        <p style="margin-bottom: 0px; font-weight:700;"> Precio total: $ ${totalCarrito}</p>
-    </div>
-    <div>
-    <button type="button" id="delete-cart" onclick="vaciarCarrito()"><span class="text-vaciar">Vaciar carrito</span></button>
-    </div>
-    `
+        <div style="display:flex; flex-direction:column; justify-content:center; width:100%;">
+        <div style="display:flex; flex-direction:row; justify-content:space-between;">
+            <div>
+                <p style="margin-bottom: 0px; font-weight:700;"> Precio total: $ ${totalCarrito}</p>
+            </div>
+            <div>
+                <button type="button" id="delete-cart" onclick="vaciarCarrito()"><span class="text-vaciar">Vaciar carrito</span></button>
+            </div>
+        </div>
+        <div style="text-align:center;">
+            <a href="#">Ir a pagar</a>
+        </div>
+        </div>
+`
     console.log(totalCarrito)
     const contador = document.getElementById("count-cart").innerHTML = `
         <p>${carrito.length} - $${totalCarrito}</p> `   
@@ -139,18 +164,25 @@ const actualizarCarrito = () => {
         <img src="${prod.imagen}" class="imagen-cart-producto">
         <h2 class="nombre-producto-cart">${prod.nombre}</h2>
         <p class="price-producto-cart">Precio: $${prod.precio}</p>
-        <p id="cantidad-productos">Cantidad: ${prod.cantidad}</p>
+        <p id="cantidad-producto">Cantidad: ${prod.cantidad}</p>
         <button class="btn-eliminar-producto" id="btn-eliminar${prod.id}" onclick="eliminarDelCarrito(${prod.id})"><i class= "fas fa-trash"></i></button>
         `
         mostradorCarrito.appendChild(contenedor)
-        document.getElementById("foot-modal").innerHTML= `
-        <div>
-            <p style="margin-bottom: 0px; font-weight:700;"> Precio total: $ ${totalCarrito}</p>
+        document.getElementById("foot-modal").innerHTML = `
+        <div style="display:flex; flex-direction:column; justify-content:center; width:100%;">
+        <div style="display:flex; flex-direction:row; justify-content:space-between;">
+            <div>
+                <p style="margin-bottom: 0px; font-weight:700;"> Precio total: $ ${totalCarrito}</p>
+            </div>
+            <div>
+                <button type="button" id="delete-cart" onclick="vaciarCarrito()"><span class="text-vaciar">Vaciar carrito</span></button>
+            </div>
         </div>
-        <div>
-            <button type="button" id="delete-cart" onclick="vaciarCarrito()"><span class="text-vaciar">Vaciar carrito</span></button>
+        <div style="text-align:center;">
+            <a href="#">Ir a pagar</a>
         </div>
-        `
+        </div>
+`
         localStorage.setItem("mostrador-carrito", JSON.stringify(mostradorCarrito.innerHTML))
     })
 }
@@ -182,3 +214,4 @@ window.addEventListener('scroll', () => {
 
 
 //Buscar los productos con el buscador
+
