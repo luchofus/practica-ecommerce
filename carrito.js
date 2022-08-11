@@ -1,6 +1,7 @@
 const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
 document.getElementById("show-cart").innerHTML = " "
-let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + producto.precio, 0)
+let totalCarrito = carrito.reduce((acumulador, producto)=> acumulador + producto.precio, 0)
+console.log(totalCarrito)
 const contador = localStorage.getItem("contador-carrito")
 document.getElementById("foot-modal").innerHTML = `
 <div>
@@ -80,6 +81,18 @@ const filtrar = () => {
             `
         }
     })
+    let btns = document.querySelectorAll(".btn-agregar-carrito")
+
+    btns.forEach((producto) => {
+        producto.addEventListener('click', () => {
+            let id = producto.id[producto.id.length - 1]
+            let productoAComprar = stockDisponible.find((prod) => prod.id == id)
+            carrito.push(productoAComprar)
+            console.log(carrito)
+            actualizarCarrito();
+        })
+    })
+
 }
 
 buscador.addEventListener('keyup', filtrar)

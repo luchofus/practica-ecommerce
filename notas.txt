@@ -2,7 +2,7 @@
 
 -----> Header:
     ---> Desktop
-    1) Editar y agregar logo
+    1) Editar y agregar logo (hecho)
     2) Hacer funcionar el buscador
     3) Solucionar problema del storage carritoCart
     4) Hacer más linda la carta del carrito
