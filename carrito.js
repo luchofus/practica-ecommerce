@@ -1,7 +1,10 @@
 const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
 document.getElementById("show-cart").innerHTML = " "
 const cantidadesProductos = localStorage.getItem("cantidad-producto")
+
+//En el principio llamé al storage para que me de la cantidad del producto elegido
 const cantidadProducto = localStorage.getItem("cantidad-de-producto")
+
 console.log(cantidadProducto)
 // const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
 let totalCarrito = carrito.reduce((acumulador, producto)=> acumulador + (producto.precio * producto.cantidad), 0)
@@ -143,10 +146,12 @@ stockDisponible.forEach ((producto) => {
             carrito.push(producto)    
         }
         console.log(`Cantidad producto ${producto.nombre}: ${producto.cantidad}`)
+        //Setee la cantidad del producto elegido
         localStorage.setItem("cantidad-de-producto", producto.cantidad)
         let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + (producto.precio * producto.cantidad), 0)
         const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
         localStorage.setItem("carrito", JSON.stringify(carrito))
+        //Alerta al agregar al carrito
         const alert = Swal.fire(`
         <p>¡Agregaste con éxito ${producto.nombre} al carrito!</p>
         <img src="${producto.imagen}" class="imagen-cart-producto">
