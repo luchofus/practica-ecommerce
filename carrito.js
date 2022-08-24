@@ -5,16 +5,22 @@ const cantidadesProductos = localStorage.getItem("cantidad-producto")
 //En el principio llamé al storage para que me de la cantidad del producto elegido
 const cantidadProducto = localStorage.getItem("cantidad-de-producto")
 
-console.log(cantidadProducto)
 // const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
 let totalCarrito = carrito.reduce((acumulador, producto)=> acumulador + (producto.precio * producto.cantidad), 0)
 const contador = localStorage.getItem("contador-carrito")
 document.getElementById("count-cart").innerHTML = `
         <p>${cantidadesProductos} - $${totalCarrito}</p> `  
-
         
-
-
+carrito.forEach((prod) => {
+document.getElementById("cont-prod-pagar").innerHTML += `
+<div>
+<div style="display:flex; flex-direction:row; width:100%">
+    <p class="name">${prod.nombre}</p>
+    <p class="cantidad">x ${prod.cantidad}</p>
+    <p class="price">Precio: ${prod.precio}</p>
+</div>
+</div>`
+})  
 
 document.getElementById("foot-modal").innerHTML = `
 <div style="display:flex; flex-direction:column; justify-content:center; width:100%;">
@@ -27,7 +33,7 @@ document.getElementById("foot-modal").innerHTML = `
     </div>
 </div>
 <div style="text-align:center;">
-    <a href="#">Ir a pagar</a>
+    <a href="#scrollspyHeading1">Ir a pagar</a>
 </div>
 </div>
 `
@@ -62,21 +68,63 @@ const stockDisponible = [
     {id: 12,nombre: "Suplemento deportivo",precio: 200, imagen: "proteinas.jpg", cantidad:1},
 ]
 
+const newCards = async () => {    
+    const response = await fetch('productos.json');
+    const data = await response.json();
+        data.forEach((producto) => {
+            const botonId = `agregarCarrito${producto.id}`
+            const cardsCont = document.getElementById("cards-section")
+            const div = document.createElement("div")
+            div.className = "col col-lg-3 col-dm-3 col-xs-6 contenedor-productos"
+            div.innerHTML += `<img src="${producto.imagen}" class="img-productos">
+            <h2 class="title-productos">${producto.nombre}</h2>
+            <p class="price-productos">Precio: $${producto.precio}</p>
+            <button class="btn-agregar-carrito" id=${botonId}><span class="text-btn-add">Agregar</span></button>
+            `
+            cardsCont.appendChild(div)
+            document.getElementById(botonId).addEventListener('click', () => {
+                let existeElProducto = carrito.some((prod) => prod.id == producto.id)
+                if(existeElProducto){
+                    let prodFind = carrito.find((prod) => prod.id == producto.id)
+                    prodFind.cantidad++;
+                }else{
+                    carrito.push(producto)    
+                }
+                const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
+                    localStorage.setItem("cantidad-producto", JSON.stringify(cantidadesProductos))
+                    localStorage.setItem("carrito", JSON.stringify(carrito))
+                    let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + (producto.precio * producto.cantidad), 0)
+                const alert = Swal.fire(`
+                <p>¡Agregaste con éxito ${producto.nombre} al carrito!</p>
+                <img src="${producto.imagen}" class="imagen-cart-producto">
+                <div style="display:flex; flex-direction:row; justify-content:space-between; width:100%;">
+                    <p>Precio: $${producto.precio}</p>
+                </div>
+                <p>Total carrito: $${totalCarrito}</p>`
+            )
+            actualizarCarrito();
+            })
+        })
+
+    }
+
+newCards();
+
 // Creamos las cards de los productos con un forEach
-stockDisponible.forEach ((producto) => {
-    const botonId = `agregarCarrito${producto.id}`
-    const cardsCont = document.getElementById("cards-section")
-    const contenedor = document.createElement("div")
-    contenedor.className = "col col-lg-3 col-dm-3 col-xs-6 contenedor-productos"
-    contenedor.innerHTML += `<div data-aos="fade-up" data-aos-duration="1" class="productos">
-        <img src="${producto.imagen}" class="img-productos">
-        <h2 class="title-productos">${producto.nombre}</h2>
-        <p class="price-productos">Precio: $${producto.precio}</p>
-        <button class="btn-agregar-carrito" id=${botonId}><span class="text-btn-add">Agregar</span></button>
-    </div>`
-    //Agregamos a la seccion cards-section el html creado arriba
-    cardsCont.appendChild(contenedor)
-})
+// stockDisponible.forEach ((producto) => {
+//     const botonId = `agregarCarrito${producto.id}`
+//     const cardsCont = document.getElementById("cards-section")
+//     const contenedor = document.createElement("div")
+//     contenedor.className = "col col-lg-3 col-dm-3 col-xs-6 contenedor-productos"
+//     contenedor.innerHTML += `<div data-aos="fade-up" data-aos-duration="1" class="productos">
+//         <img src="${producto.imagen}" class="img-productos">
+//         <h2 class="title-productos">${producto.nombre}</h2>
+//         <p class="price-productos">Precio: $${producto.precio}</p>
+//         <button class="btn-agregar-carrito" id=${botonId}><span class="text-btn-add">Agregar</span></button>
+//     </div>`
+//     //Agregamos a la seccion cards-section el html creado arriba
+//     cardsCont.appendChild(contenedor)
+// })
 
 const buscador = document.getElementById("input-buscar")
 const botonBuscador = document.getElementById("btn-buscar")
@@ -107,7 +155,8 @@ const botonBuscador = document.getElementById("btn-buscar")
                     let productoAgregar = stockDisponible.find((prod) => prod.id == id)
                     let existeElProducto = carrito.some((prod) => prod.id == producto.id)
                     if(existeElProducto){
-                        producto.cantidad++;
+                        let prodFind = carrito.find((prod) => prod.id == producto.id)
+                        prodFind.cantidad++;
                     }else{
                         carrito.push(productoAgregar)    
                     }
@@ -119,7 +168,6 @@ const botonBuscador = document.getElementById("btn-buscar")
                     <p>¡Agregaste con éxito ${productoAgregar.nombre} al carrito!</p>
                     <img src="${productoAgregar.imagen}" class="imagen-cart-producto">
                     <div style="display:flex; flex-direction:row; justify-content:space-between; width:100%;">
-                        <p>Cantidad: ${productoAgregar.cantidad}</p>
                         <p>Precio: $${productoAgregar.precio}</p>
                     </div>
                     <p>Total carrito: $${totalCarrito}</p>`
@@ -135,45 +183,44 @@ buscador.addEventListener('keyup', filtrar)
 botonBuscador.addEventListener('click', filtrar)
 
 
-//Función agregar al carrito
-stockDisponible.forEach ((producto) => {
-    const botonId = `agregarCarrito${producto.id}`
-    document.getElementById(botonId).addEventListener('click', () =>{
-        let existeElProducto = carrito.some((prod) => prod.id == producto.id)
-        if(existeElProducto){
-            producto.cantidad++;
-        }else{
-            carrito.push(producto)    
-        }
-        console.log(`Cantidad producto ${producto.nombre}: ${producto.cantidad}`)
-        //Setee la cantidad del producto elegido
-        localStorage.setItem("cantidad-de-producto", producto.cantidad)
-        let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + (producto.precio * producto.cantidad), 0)
-        const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
-        localStorage.setItem("carrito", JSON.stringify(carrito))
-        //Alerta al agregar al carrito
-        const alert = Swal.fire(`
-        <p>¡Agregaste con éxito ${producto.nombre} al carrito!</p>
-        <img src="${producto.imagen}" class="imagen-cart-producto">
-        <div style="display:flex; flex-direction:row; justify-content:space-between; width:100%;">
-            <p>Cantidad: ${producto.cantidad}</p>
-            <p>Precio: $${producto.precio}</p>
-        </div>
-        <p>Total carrito: $${totalCarrito}</p>`
-    )
-    actualizarCarrito();
-    alert.className = ("alert-buy")
+// Función agregar al carrito
+// const agregarAlCarrito = () => {
+//     stockDisponible.forEach ((producto) => {
+//     const botonId = `agregarCarrito${producto.id}`
+//     document.getElementById(botonId).addEventListener('click', () =>{
+//         let existeElProducto = carrito.some((prod) => prod.id == producto.id)
+//         if(existeElProducto){
+//             let prodFind = carrito.find((prod) => prod.id == producto.id)
+//             prodFind.cantidad++;
+//         }else{
+//             carrito.push(producto)    
+//         }
+//         //Setee la cantidad del producto elegido
+//         localStorage.setItem("cantidad-de-producto", producto.cantidad)
+//         let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + (producto.precio * producto.cantidad), 0)
+//         const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
+//         localStorage.setItem("carrito", JSON.stringify(carrito))
+//         //Alerta al agregar al carrito
+//         const alert = Swal.fire(`
+//         <p>¡Agregaste con éxito ${producto.nombre} al carrito!</p>
+//         <img src="${producto.imagen}" class="imagen-cart-producto">
+//         <div style="display:flex; flex-direction:row; justify-content:space-between; width:100%;">
+//             <p>Precio: $${producto.precio}</p>
+//         </div>
+//         <p>Total carrito: $${totalCarrito}</p>`
+//     )
+//     actualizarCarrito();
+//     alert.className = ("alert-buy")
     
-    })
-})
-
+//     })
+// })
+// }
 const actualizarCarrito = () => {
     //Actualizamos lo que vamos a ver cuando clickeemos sobre el carrito
     mostradorCarrito.innerHTML = " "
     const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
     localStorage.setItem("cantidad-producto", JSON.stringify(cantidadesProductos))
     let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + (producto.precio * producto.cantidad), 0)
-    console.log(totalCarrito)
     localStorage.setItem("total-carrito", totalCarrito)
     document.getElementById("foot-modal").innerHTML = `
         <div style="display:flex; flex-direction:column; justify-content:center; width:100%;">
@@ -186,7 +233,7 @@ const actualizarCarrito = () => {
             </div>
         </div>
         <div style="text-align:center;">
-            <a href="#">Ir a pagar</a>
+            <a href="#scrollspyHeading1">Ir a pagar</a>
         </div>
         </div>
 `
@@ -215,11 +262,22 @@ const actualizarCarrito = () => {
             </div>
         </div>
         <div style="text-align:center;">
-            <a href="#">Ir a pagar</a>
+            <a href="#scrollspyHeading1">Ir a pagar</a>
         </div>
         </div>
 `
         localStorage.setItem("mostrador-carrito", JSON.stringify(mostradorCarrito.innerHTML))
+        document.getElementById("cont-prod-pagar").innerHTML = " "
+        carrito.forEach((prod) => {
+            document.getElementById("cont-prod-pagar").innerHTML += `
+            <div style="display:flex; flex-direction:row;">
+                <p>${prod.nombre}</p>
+                <p>x ${prod.cantidad}</p>
+                <p>Precio: ${prod.precio}</p>
+            </div>
+                `
+        
+        })
     })
 }
 
@@ -252,4 +310,4 @@ window.addEventListener('scroll', () => {
 })
 
 
-//Buscar los productos con el buscador
+

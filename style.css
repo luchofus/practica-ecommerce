@@ -460,3 +460,26 @@ body{
     height: 250px;
     background-color: rgb(1, 171, 82);
 }
+
+
+.cont-productos-a-pagar{
+    margin: 30px 80px;
+    background: rgb(75, 235, 75);
+    position: sticky;
+    height: max-content;
+}
+.name{
+    padding: 10px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.cantidad{
+    padding: 10px 5px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.price{
+    padding: 10px 0px 10px 220px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}

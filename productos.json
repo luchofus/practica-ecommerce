@@ -1,0 +1,14 @@
+[
+    {"id": 1,"nombre": "Avena","precio": 180, "imagen": "avena.jpg", "cantidad":1},
+    {"id": 2,"nombre": "Granola","precio": 170, "imagen": "granola.jpg", "cantidad":1},
+    {"id": 3,"nombre": "Barritas energéticas","precio": 60, "imagen": "barritas.jpg", "cantidad":1},
+    {"id": 4,"nombre": "Almohaditas","precio": 120, "imagen": "almohaditas.jpg", "cantidad":1},
+    {"id": 5,"nombre": "Pan integral","precio": 180, "imagen": "pan-integral.jpg", "cantidad":1},
+    {"id": 6,"nombre": "Alfajores","precio": 100, "imagen": "alfajores.jpg", "cantidad":1},
+    {"id": 7,"nombre": "Leche de almendras","precio": 290, "imagen": "leche.jpg", "cantidad":1},
+    {"id": 8,"nombre": "Frutos secos","precio": 110, "imagen": "frutos.jpg", "cantidad":1},
+    {"id": 9,"nombre": "Galletitas de avena","precio": 80, "imagen": "galletitas.jpg", "cantidad":1},
+    {"id": 10,"nombre": "Infusiones","precio": 60, "imagen": "infusiones.jpg", "cantidad":1},
+    {"id": 11,"nombre": "Cereales","precio": 90, "imagen": "cereales.jpg", "cantidad":1},
+    {"id": 12,"nombre": "Suplemento deportivo","precio": 200, "imagen": "proteinas.jpg", "cantidad":1}
+]
