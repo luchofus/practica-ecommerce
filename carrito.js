@@ -1,11 +1,11 @@
 const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
 document.getElementById("show-cart").innerHTML = " "
-const cantidadesProductos = localStorage.getItem("cantidad-producto")
+let cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
 
 //En el principio llamé al storage para que me de la cantidad del producto elegido
 const cantidadProducto = localStorage.getItem("cantidad-de-producto")
 
-// const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
+// let cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
 let totalCarrito = carrito.reduce((acumulador, producto)=> acumulador + (producto.precio * producto.cantidad), 0)
 const contador = localStorage.getItem("contador-carrito")
 document.getElementById("count-cart").innerHTML = `
@@ -90,7 +90,7 @@ const newCards = async () => {
                 }else{
                     carrito.push(producto)    
                 }
-                const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
+                let cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
                     localStorage.setItem("cantidad-producto", JSON.stringify(cantidadesProductos))
                     localStorage.setItem("carrito", JSON.stringify(carrito))
                     let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + (producto.precio * producto.cantidad), 0)
@@ -160,7 +160,7 @@ const botonBuscador = document.getElementById("btn-buscar")
                     }else{
                         carrito.push(productoAgregar)    
                     }
-                    const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
+                    let cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
                     localStorage.setItem("cantidad-producto", JSON.stringify(cantidadesProductos))
                     localStorage.setItem("carrito", JSON.stringify(carrito))
                     let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + (producto.precio * producto.cantidad), 0)
@@ -198,7 +198,7 @@ botonBuscador.addEventListener('click', filtrar)
 //         //Setee la cantidad del producto elegido
 //         localStorage.setItem("cantidad-de-producto", producto.cantidad)
 //         let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + (producto.precio * producto.cantidad), 0)
-//         const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
+//         let cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
 //         localStorage.setItem("carrito", JSON.stringify(carrito))
 //         //Alerta al agregar al carrito
 //         const alert = Swal.fire(`
@@ -218,7 +218,7 @@ botonBuscador.addEventListener('click', filtrar)
 const actualizarCarrito = () => {
     //Actualizamos lo que vamos a ver cuando clickeemos sobre el carrito
     mostradorCarrito.innerHTML = " "
-    const cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
+    let cantidadesProductos = carrito.reduce((acc, producto) => acc + producto.cantidad, 0)
     localStorage.setItem("cantidad-producto", JSON.stringify(cantidadesProductos))
     let totalCarrito = carrito.reduce((acumulador, producto) => acumulador + (producto.precio * producto.cantidad), 0)
     localStorage.setItem("total-carrito", totalCarrito)
@@ -267,17 +267,23 @@ const actualizarCarrito = () => {
         </div>
 `
         localStorage.setItem("mostrador-carrito", JSON.stringify(mostradorCarrito.innerHTML))
+
         document.getElementById("cont-prod-pagar").innerHTML = " "
         carrito.forEach((prod) => {
             document.getElementById("cont-prod-pagar").innerHTML += `
-            <div style="display:flex; flex-direction:row;">
-                <p>${prod.nombre}</p>
-                <p>x ${prod.cantidad}</p>
-                <p>Precio: ${prod.precio}</p>
-            </div>
-                `
-        
+                <div style="display:flex; flex-direction:row; justify-content:space-between; width:100%">
+                    <div style="display:flex; flex-direction-row" class="cont-name-cant">
+                        <p class="name">${prod.nombre}</p>
+                        <p class="cantidad">x ${prod.cantidad}</p>
+                    </div>
+                    <div class="cont-price-car">
+                        <p class="price">Precio: ${prod.precio}</p>
+                    </div>
+                </div>`
         })
+        if(cantidadesProductos = 0){
+            document.getElementById("cont-prod-pagar").innerHTML = " "
+        }
     })
 }
 

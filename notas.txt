@@ -1,13 +1,5 @@
-5 de agosto tareas:
+Anotaciones Proyecto Final:
 
------> Header:
-    ---> Desktop
-    1) Editar y agregar logo (hecho)
-    2) Hacer funcionar el buscador
-    3) Solucionar problema del storage carritoCart
-    4) Hacer más linda la carta del carrito
-    5) Crear el navbar en base a las categorías de los productos
-
-    ---> Mobile
-    1) Crear el menú hamburguesa (Debe contener: 1) Link Instagram; 2) Cerrar menú; 3) Navbar en base a las categorías;
-    2) Modificar las rows del header 
+--> 1) Formulario pagar: -Darle estilos; -Hacerlo un simulador de pago
+--> 2) Mostrador productos en sección pagar: Cuando el carrito.lenght sea = 0; desaparezca el cuadro
+                    
