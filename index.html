@@ -25,7 +25,7 @@
             <div class="cont-row-2-header row">
                 <div class="cont-col-1 col col-lg-2 cont-logo">
                     <a href="index.html">
-                        <img src="valleverde.png" class="imagen-link" alt="">
+                        <img src="src/valleverde.png" class="imagen-link" alt="">
                     </a>
                 </div>
                 <div class="cont-col-1 col col-lg-7 col-md-10 col-xs-9 cont-search">
@@ -89,23 +89,23 @@
 
         </div>
         <div id="new-cards">
-            
+
         </div>
     </section>
     <section>
         <h4 class="titulo-pago">Pagar</h4>
-        <div id="scrollspyHeading1" class="cont-pago" style="display: flex; flex-direction:row;">
-            <div class="col col-lg-6">
-                <form class="row g-3 needs-validation" novalidate>
+        <div id="scrollspyHeading1" class="cont-pago">
+            <div class="col col-lg-6" id="cont-form">
+                <form class="row g-3 needs-validation form-pay" novalidate id="form">
                     <h5>Datos de contacto</h5>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="validationCustom01"  required placeholder="Nombre">
+                    <div class="col-md-6" id="cont-nombre">
+                        <input type="text" class="form-control" id="validationCustom01" required placeholder="Nombre">
                         <div class="valid-feedback">
                             Looks good!
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" id="validationCustom02"  required placeholder="Apellido">
+                        <input type="text" class="form-control" id="validationCustom02" required placeholder="Apellido">
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -122,31 +122,46 @@
                     </div>
                     <h5>Medio de pago</h5>
                     <div class="col-md-12">
-                        <input type="number" class="form-control" id="validationCustom03" required placeholder="Número de la tarjeta XXXX/XXXX/XXXX/XXXX">
+                        <input type="text" class="form-control" id="validationCustom03" required maxlength=16
+                            placeholder="Número de la tarjeta XXXX/XXXX/XXXX/XXXX">
                         <div class="invalid-feedback">
                             Please provide a valid city.
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <input type="number" class="form-control" id="validationCustom03" required placeholder="Titular de la tarjeta">
+                        <input type="text" class="form-control" id="validationCustom04" required
+                            placeholder="Titular de la tarjeta">
                         <div class="invalid-feedback">
                             Please select a valid state.
                         </div>
                     </div>
                     <div class="col-md-3">
-        
-                    <input type="date" class="form-control" id="validationCustom05" required placeholder="Vencimiento">
+                        <label><h6>Vencimiento</h6></label>
+                        <input type="date" class="form-control" id="validationCustom05" required
+                            placeholder="Vencimiento">
                         <div class="invalid-feedback">
                             Please provide a valid zip.
                         </div>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" type="submit">Realizar pedido</button>
+                        <button class="btn btn-primary" type="submit" id="btn-submit">Realizar pedido</button>
+                        <button class="btn btn-secondary btn-spinner" type="submit" id="btn-spinner">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </button>
                     </div>
                 </form>
+                <div id="text-page-doneit" class="text-done">
+
+                </div>
             </div>
             <div class="col col-lg-5 cont-productos-a-pagar" id="cont-prod-pagar">
 
+
+                <div class="cont-total-price" id="total-price">
+
+                </div>
             </div>
         </div>
 

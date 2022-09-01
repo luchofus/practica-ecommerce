@@ -1,5 +1,6 @@
-Anotaciones Proyecto Final:
+Proyecto final:
 
---> 1) Formulario pagar: -Darle estilos; -Hacerlo un simulador de pago
---> 2) Mostrador productos en sección pagar: Cuando el carrito.lenght sea = 0; desaparezca el cuadro
-                    
+Ultimas anotaciones
+
+1) Arreglar bug del filtro
+2) Hacerlo más lindo para mobile
